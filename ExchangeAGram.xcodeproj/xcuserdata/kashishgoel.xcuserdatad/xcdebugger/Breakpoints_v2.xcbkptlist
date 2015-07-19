@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ExchangeAGram/FeedViewController.swift"
+            timestampString = "458960256.508903"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "13"
+            endingLineNumber = "13"
+            landmarkName = "FeedViewController"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ExchangeAGram.FeedViewController.collectionView.getter : weak Swift.ImplicitlyUnwrappedOptional&lt;ObjectiveC.UICollectionView&gt;"
+                  moduleName = "ExchangeAGram"
+                  urlString = "file:///Users/kashishgoel/Documents/ExchangeAGram/ExchangeAGram/FeedViewController.swift"
+                  timestampString = "458960256.841069"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "12">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ExchangeAGram.FeedViewController.collectionView.materializeForSet : weak Swift.ImplicitlyUnwrappedOptional&lt;ObjectiveC.UICollectionView&gt;"
+                  moduleName = "ExchangeAGram"
+                  urlString = "file:///Users/kashishgoel/Documents/ExchangeAGram/ExchangeAGram/FeedViewController.swift"
+                  timestampString = "458960256.84142"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ExchangeAGram.FeedViewController.init (ExchangeAGram.FeedViewController.Type)(nibName : Swift.Optional&lt;Swift.String&gt;, bundle : Swift.Optional&lt;ObjectiveC.NSBundle&gt;) -&gt; ExchangeAGram.FeedViewController"
+                  moduleName = "ExchangeAGram"
+                  urlString = "file:///Users/kashishgoel/Documents/ExchangeAGram/ExchangeAGram/FeedViewController.swift"
+                  timestampString = "458960256.841576"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15"
+                  offsetFromSymbolStart = "53">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ExchangeAGram.FeedViewController.init (ExchangeAGram.FeedViewController.Type)() -&gt; ExchangeAGram.FeedViewController"
+                  moduleName = "ExchangeAGram"
+                  urlString = "file:///Users/kashishgoel/Documents/ExchangeAGram/ExchangeAGram/FeedViewController.swift"
+                  timestampString = "458960256.841705"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15"
+                  offsetFromSymbolStart = "57">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ExchangeAGram.FeedViewController.init (ExchangeAGram.FeedViewController.Type)(coder : ObjectiveC.NSCoder) -&gt; ExchangeAGram.FeedViewController"
+                  moduleName = "ExchangeAGram"
+                  urlString = "file:///Users/kashishgoel/Documents/ExchangeAGram/ExchangeAGram/FeedViewController.swift"
+                  timestampString = "458960256.841846"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15"
+                  offsetFromSymbolStart = "64">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ExchangeAGram/AppDelegate.swift"
+            timestampString = "458960362.334669"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "13"
+            endingLineNumber = "13"
+            landmarkName = "AppDelegate"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            scope = "0"
+            stopOnStyle = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
