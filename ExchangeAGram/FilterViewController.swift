@@ -10,6 +10,8 @@ import UIKit
 import CoreData
 
 class FilterViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+   
+    //variables
     var thisFeedItem:FeedItem!
     var collectionView:UICollectionView!
     let kIntensity = 0.7
@@ -27,26 +29,40 @@ let layout = UICollectionViewFlowLayout ()
         collectionView.backgroundColor = UIColor.whiteColor()
         collectionView.registerClass(FilterCell.self, forCellWithReuseIdentifier: "MyCell")
         self.view.addSubview(collectionView)
-        filters = photoFilter()
-    }
+        filters = photoFilter()    }
 
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    //number of things
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return filters.count
     }
+    
+    //actual pics
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
         let cell:FilterCell = collectionView.dequeueReusableCellWithReuseIdentifier("MyCell", forIndexPath: indexPath) as FilterCell
-        //cell.imageView.image = UIImage(named: "Placeholder")
+        cell.imageView.image = UIImage(named: "Placeholder")
         
-        
-        cell.imageView.image = filteredImageFromImage(thisFeedItem.image, filter: filters[indexPath.row])
+        let filterQueue:dispatch_queue_t = dispatch_queue_create("filter queue", nil)
+        dispatch_async(filterQueue, { () -> Void in
+            let filterImage = self.filteredImageFromImage(self.thisFeedItem.image, filter: self.filters[indexPath.row])
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                cell.imageView.image = filterImage
+            })
+        })
         
         return cell
     }
+    
+    
+    
+    //filters list
     func photoFilter () -> [CIFilter] {
         let blur = CIFilter(name: "CIGaussianBlur")
         let instant = CIFilter(name: "CIPhotoEffectInstant")
@@ -74,6 +90,9 @@ let layout = UICollectionViewFlowLayout ()
     
     return [blur,instant,noir,transfer,unsharpen,monochrome,colorClamp,colorControls,sepia,composite,vignette]
     }
+    
+    
+    //changing image to filtered image
     func filteredImageFromImage (imageData:NSData, filter:CIFilter) -> UIImage {
         let unfilteredImage = CIImage(data:imageData)
         filter.setValue(unfilteredImage, forKey: kCIInputImageKey)
@@ -84,4 +103,6 @@ let layout = UICollectionViewFlowLayout ()
         let finalImage = UIImage(CGImage: cgImage)
 return finalImage!
 }
+    
+    
 }
