@@ -9,20 +9,27 @@
 import UIKit
 import MobileCoreServices
 import CoreData
+import MapKit
 
-class FeedViewController: UIViewController, UICollectionViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate,UICollectionViewDataSource  {
+class FeedViewController: UIViewController, UICollectionViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate,UICollectionViewDataSource, CLLocationManagerDelegate  {
 
     @IBOutlet weak var collectionView: UICollectionView!
     var feedArray: [AnyObject] = []
+    var locationManager: CLLocationManager!
     //ViewDidLoad
     //
     //
     override func viewDidLoad() {
         super.viewDidLoad()
-        let request = NSFetchRequest(entityName: "FeedItem")
-        let appDelegate:AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
-        let context:NSManagedObjectContext = appDelegate.managedObjectContext!
-        feedArray = context.executeFetchRequest(request, error: nil)!
+        let bgImage = UIImage(named: "AutumnBackground")
+        self.view.backgroundColor = UIColor(patternImage: bgImage!)
+        
+        locationManager = CLLocationManager()
+        self.locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestAlwaysAuthorization()
+        locationManager.distanceFilter = 100
+        locationManager.startUpdatingLocation()
 
         // Do any additional setup after loading the view.
     }
@@ -72,16 +79,28 @@ class FeedViewController: UIViewController, UICollectionViewDelegate, UIImagePic
         
     //UIIMagePickerControllerDelegate
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
-        let image = info[UIImagePickerControllerOriginalImage] as UIImage
+        let image = info[UIImagePickerControllerOriginalImage] as! UIImage
         let imageData = UIImageJPEGRepresentation(image, 1.0)
-        let managedObjectContext = (UIApplication.sharedApplication().delegate as AppDelegate).managedObjectContext
+        let thumbNailData = UIImageJPEGRepresentation(image, 0.1)
+        let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
         let entityDescription = NSEntityDescription.entityForName("FeedItem", inManagedObjectContext: managedObjectContext!)
         let feedItem = FeedItem(entity: entityDescription!, insertIntoManagedObjectContext: managedObjectContext!)
         feedItem.image = imageData
         feedItem.caption = "test caption"
-        (UIApplication.sharedApplication().delegate as AppDelegate).saveContext()
+        feedItem.thumbNail = thumbNailData
+        feedItem.latitude = locationManager.location.coordinate.latitude
+        feedItem.longitude = locationManager.location.coordinate.longitude
+        let UUID = NSUUID().UUIDString
+        feedItem.uniqueID = UUID
+        feedItem.filtered = false
+        
+        
+        
+        (UIApplication.sharedApplication().delegate as! AppDelegate).saveContext()
         self.dismissViewControllerAnimated(true, completion: nil)
     }
+    
+    
     
     //UICollectionViewDataSource
     
@@ -93,16 +112,20 @@ class FeedViewController: UIViewController, UICollectionViewDelegate, UIImagePic
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        var cell:FeedCell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as FeedCell
-        let thisItem = feedArray[indexPath.row] as FeedItem
+        var cell:FeedCell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! FeedCell
+        let thisItem = feedArray[indexPath.row] as! FeedItem
         cell.imageView.image = UIImage(data: thisItem.image)
         cell.captionLabel.text = thisItem.caption
+        if thisItem.filtered == true {
+        let returnedImage = UIImage(data: thisItem.image)
+            let image = UIImage(CGImage: returnedImage!.CGImage, scale: 1.0, orientation: UIImageOrientation.Right)
+        }
         return cell
     }
     
     //UICollectionViewDelegate
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        let thisItem = feedArray[indexPath.row] as FeedItem
+        let thisItem = feedArray[indexPath.row] as! FeedItem
         var filterVC = FilterViewController ()
         filterVC.thisFeedItem = thisItem
         
@@ -111,7 +134,28 @@ class FeedViewController: UIViewController, UICollectionViewDelegate, UIImagePic
         
     }
     
+    //updates the feedview when didselect is clicked in filter view
+    override func viewDidAppear(animated: Bool) {
+        let request = NSFetchRequest(entityName: "FeedItem")
+        let appDelegate:AppDelegate = (UIApplication.sharedApplication().delegate as! AppDelegate)
+        let context:NSManagedObjectContext = appDelegate.managedObjectContext!
+        feedArray = context.executeFetchRequest(request, error: nil)!
+        collectionView.reloadData()
+    }
+
+    
+    @IBAction func profileButtonTapped(sender: UIBarButtonItem) {
+        self.performSegueWithIdentifier("profileSegue", sender: nil)
+    }
    
+    
+    //location stuff
+    
+    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+        println("locations = \(locations)")
+    }
+    
+    
     
     
 }
